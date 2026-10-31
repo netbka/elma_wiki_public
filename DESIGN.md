@@ -6,6 +6,8 @@ description: A calm, mobile-first product introduction and synthetic change-revi
 # Overview
 Product presentation with a task-oriented demo. The first approved concept supplies the homepage hierarchy; the other concepts inform the step-by-step demo and author story. A responsive website, not a device-framed mobile app. The user asked to combine the concepts into one navigable Site.
 
+As of 2026-11-01 the primary audience, website goal and demonstration format are being reconsidered with the owner. Existing layouts are a baseline for discussion, not a settled communication strategy. The first screen introduces the product; author attribution is secondary in the footer/about page. Further redesign waits for the fundamental brief.
+
 # Colors
 Ink #1f2328, secondary text #59636e, white canvas, surface #f6f8fa, border #d1d9e0. Primary action #1f883d; hover #1a7f37. Links and focus #0969da. Error #cf222e. Success surface #dafbe1. Palette follows the existing project's Primer direction.
 
