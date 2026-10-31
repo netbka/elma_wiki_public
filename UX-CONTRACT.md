@@ -12,6 +12,10 @@ Home -> Try -> Context -> editable request and threshold -> prepared solution ->
 - Language is page-session state; demo user-authored text is not translated or overwritten.
 - Hash route is shareable and browser back works. Shared header/footer identify all pages.
 
+## Product explanation
+
+Additional routes: `#capabilities`, `#examples`, `#team`. They explain the product and use synthetic examples. Workspace and scenario selectors change local page state only; they do not create a request or call AIWorks. Choices expose pressed state and retain keyboard focus. The runnable approval example remains at `#demo`; other scenarios are labeled illustrative. Language switches update all explanatory content without changing demo records. Roles in acceptance are analyst and product owner.
+
 ## Capability ownership
 Form: labeled native inputs with inline errors, first error focus, max lengths and numeric threshold constraints. Success is preview only.
 Scrollbar: global themed scrollbar, no nested cosmetic scroll containers, document owns scroll. Textarea grows with content up to a bounded editing size.

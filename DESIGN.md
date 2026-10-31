@@ -22,6 +22,8 @@ Flat surfaces, 1px borders, 5-7px component radii. No decorative shadows or grad
 Shared header, RU/EN switch, mobile disclosure navigation, prominent green primary action, restrained product interface sample, five-step demo, condition form, process comparison, three boundary tests, two-role acceptance, local result record, contact form preview and launch explanation.
 Octicons package supplies standard icons. No generated raster UI in the implementation. The wordmark is plain text as in the source concept.
 
+Content expansion: shared section headings, question rows and a handoff record introduce the deeper story. Capabilities, scenarios and team pages use the same tokens and buttons. The signature remains a readable example of real work, not a decorative graphic. Scenario selectors and the workspace sample are local educational views. Their labels must identify sample content. Use document scrolling, stack reading columns on small screens and collapse the expanded header below 1050px. Runtime values remain owned by `src/styles.css`; `story.css` and `product-pages.css` reuse its CSS variables.
+
 # Behavior and accessibility
 48px primary targets, 44px minimum auxiliary targets. Visible keyboard focus, main-content skip link, named controls and native dialog. Hash navigation changes title and focuses main. Demo step changes focus the active panel. Responsive layouts at 320px and up. Reduced motion and forced colors supported. Errors are inline and announced. Acceptance requires all checks and both roles.
 
