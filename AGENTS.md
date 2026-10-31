@@ -2,11 +2,13 @@
 
 Canonical repository: `netbka/elma_wiki_public`. File public website PRs and issues here. `netbka/elma_wiki` is the separate internal application. The website uses synthetic data only. Keep its current Sites project identity and audience; GitHub source changes do not automatically publish to Sites. See `docs/DEPLOYMENT.md` and `docs/REPOSITORY_MIGRATION.md`.
 
-Owner direction 2026-10-31: expand the first website sketch into a substantive explanation of the product. Preserve the approved calm visual direction. Show recognizable work situations, contextual requests, package work, actual comparisons, role responsibilities and result-specific acceptance. Keep runnable demo behavior distinct from illustrative scenarios. Do not imply a universal self-service SaaS or completed autonomous production delivery. Final package acceptance roles are analyst and product owner.
+Owner direction 2026-10-31: expand the first website sketch into a substantive explanation of the product. Preserve the approved calm visual direction. Show recognizable work situations, contextual requests, package work, actual comparisons, role responsibilities and result-specific acceptance. Keep runnable demo behavior distinct from illustrative scenarios. Do not imply a universal self-service SaaS. Keep human approvals and deployment responsibilities visible. Final package acceptance roles are analyst and product owner.
 
 Latest owner direction: continue code work in this repository; do not update the registered Sites publication unless explicitly asked again. Adopt the actual internal Wiki organization of modules and requests. Preserve module composition, form/process context, element-linked requests, stage/next participant and request detail anatomy, using synthetic browser-local data in the public project.
 
 Owner direction 2026-11-01: pause further design/content expansion until the website's primary audience, goal, core demonstration and visitor outcome are discussed. Existing breadth is not an approved positioning brief. Keep the author's name out of the first screen; attribution belongs in the footer/about page. Do not treat proposed audiences or formats as approved decisions.
+
+Owner clarification: the real ELMA Wiki workflow already works end to end, including release to production. Use this as the current product status; do not infer product incompleteness from the browser-local public demo or an earlier source review. This does not by itself establish unattended deployment or universal self-service installation. Audience, website goal and primary demonstration are still undecided. When a user choice is needed, use the available interactive question tool, with no more than three questions per round.
 
 Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
 
