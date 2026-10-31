@@ -1,5 +1,7 @@
 # Design QA
 
+Latest implementation review: [approved project positioning in code, 2026-11-01](docs/qa/implementation-2026-11-01/README.md). Homepage, real cases, human decisions and .e365/AIWorks execution now follow the agreed brief. The earlier evidence below records the original baseline.
+
 final result: passed (original prototype review; migration verification recorded separately)
 
 ## Visual truth and evidence
