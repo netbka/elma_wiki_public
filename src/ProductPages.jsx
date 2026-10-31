@@ -28,7 +28,7 @@ function WorkspaceSample({ t }) {
     ],
     packages: [
       [t('Правила согласования договоров', 'Contract approval rules'), t('Связанные заявки, общий результат и список проверок', 'Related requests, a shared result and a review checklist'), t('Подготовить к работе', 'Prepare for work')],
-      [t('Проверка результата на DEV2', 'Review the result on DEV2'), t('Что сделано, что проверить и кому дать подтверждение', 'What changed, what to check and who needs to confirm'), t('Проверить вместе', 'Review together')],
+      [t('Проверка на выбранном сервере', 'Review on the selected server'), t('Что сделано, что проверить и кому дать подтверждение', 'What changed, what to check and who needs to confirm'), t('Проверить вместе', 'Review together')],
     ],
   };
   return <section className="pp-workspace" aria-labelledby="workspace-title">
@@ -64,47 +64,63 @@ function Capabilities({ t }) {
     <WorkspaceSample t={t}/>
     <section className="pp-section" aria-labelledby="abilities-title"><div className="pp-section-intro"><p className="eyebrow">{t('Что это дает в работе', 'What this helps with')}</p><h2 id="abilities-title">{t('От «где это находится?» до «что проверять?»', 'From “where is it?” to “what should we check?”')}</h2></div><div className="pp-ability-grid">{abilities.map(([title, description]) => <article key={title}><h3>{title}</h3><p>{description}</p></article>)}</div></section>
     <section className="pp-section" aria-labelledby="modules-title"><div className="pp-section-intro"><p className="eyebrow">{t('Предметная область', 'The working context')}</p><h2 id="modules-title">{t('Сейчас в фокусе пять направлений', 'Five areas in the current scope')}</h2><p>{t('Продукт вырос из внутренней работы с этими модулями ELMA365. Связи между ними помогают разбирать изменения в контексте всей задачи.', 'The product grew from internal work with these ELMA365 modules. Their connections help teams consider a change in the context of the whole task.')}</p></div><div className="pp-module-grid">{modules.map(([title, description]) => <article key={title}><h3>{title}</h3><p>{description}</p></article>)}</div></section>
-    <NextStep title={t('Посмотрим, как это выглядит на конкретной задаче', 'Explore a concrete task')} to="examples">{t('Разобрать сценарии', 'Explore scenarios')}</NextStep>
+    <NextStep title={t('Посмотрим, как это выглядит на конкретной задаче', 'Explore a concrete task')} to="examples">{t('Посмотреть кейсы', 'Explore cases')}</NextStep>
   </div>;
 }
 
 function Examples({ t }) {
-  const [selected, setSelected] = useState('approval');
-  const examples = [
-    {
-      id: 'approval', label: t('Согласование', 'Approval'), title: t('Крупному договору нужна еще одна проверка', 'A high-value contract needs an extra review'),
-      before: t('Сейчас все договоры идут одним маршрутом. Бизнес хочет подключать финансового директора только при превышении суммы.', 'Every contract currently follows the same route. The business wants finance approval only above a value threshold.'),
-      request: t('После юридической проверки добавьте финансового директора, если сумма договора больше миллиона рублей.', 'After legal review, add finance approval when the contract value exceeds one million rubles.'),
-      clarify: t('Что делать ровно на пороге? Меняется ли правило для действующих договоров? Кто замещает финансового директора?', 'What happens exactly at the threshold? Does the rule apply to existing contracts? Who substitutes for the finance director?'),
-      affects: t('Условие по сумме и переход после юридической проверки. Основной маршрут договоров ниже порога нужно сохранить.', 'The value condition and the transition after legal review. The standard route below the threshold must be preserved.'),
-      checks: [t('Ниже порога маршрут остается прежним.', 'Below the threshold, the existing route stays.'), t('Ровно на пороге дополнительный шаг не появляется.', 'At the threshold, there is no extra step.'), t('Выше порога появляется финансовое согласование.', 'Above the threshold, finance approval is added.')],
-      result: t('Участники видят разницу маршрутов и проверяют правило на граничных суммах. Этот пример можно пройти в интерактивном демо.', 'Participants see the route difference and check boundary values. You can walk through this case in the interactive demo.'),
-    },
-    {
-      id: 'attachment', label: t('Форма документа', 'Document form'), title: t('Договор ушел на согласование без приложения', 'A contract was submitted without its attachment'),
-      before: t('Приложение запрашивают в переписке уже после отправки. Инициатор возвращается к документу, а согласующие ждут.', 'The attachment is requested in a conversation after submission. The requester returns to the document while reviewers wait.'),
-      request: t('При отправке договора на согласование проверяйте наличие приложения и объясняйте, чего не хватает.', 'When submitting a contract for approval, check for the attachment and explain what is missing.'),
-      clarify: t('Для всех ли видов договора оно обязательно? Можно ли сохранить черновик без файла? Какое сообщение поможет человеку исправить ситуацию?', 'Is it mandatory for every contract type? Can a draft be saved without a file? What message will help the person fix the problem?'),
-      affects: t('Поле приложения, действие отправки и сообщение на форме. Требование к отправке не должно случайно мешать работе с черновиком.', 'The attachment field, submit action and form message. A submission rule should not accidentally prevent work on a draft.'),
-      checks: [t('Без файла отправка объясняет, что нужно добавить.', 'Without a file, submission explains what to add.'), t('С файлом договор проходит дальше.', 'With a file, the contract proceeds.'), t('Черновик и исключения работают по согласованному правилу.', 'Drafts and exceptions follow the agreed rule.')],
-      result: t('Приемка проверяет и бизнес-ограничение, и понятность сообщения. Здесь показан разбор; работающая форма этого сценария в демо пока не реализована.', 'Review checks both the business rule and the clarity of the message. This is a case breakdown; its form is not implemented in the demo yet.'),
-    },
-    {
-      id: 'access', label: t('Действия участников', 'Participant actions'), title: t('Кто должен видеть действие в карточке?', 'Who should see an action on a record?'),
-      before: t('Человек не находит нужную кнопку. Причина может быть в этапе процесса, назначении задачи или правах. Просьбы «добавьте всем доступ» недостаточно.', 'Someone cannot find a button. The reason may be the process stage, task assignment or permissions. “Give everyone access” does not define a solution.'),
-      request: t('Помогите разобраться, кто и на каком этапе должен отправлять документ на повторную проверку.', 'Help establish who should send the document for another review, and at which stage.'),
-      clarify: t('Кто выполняет действие? В каких состояниях? Что должен видеть другой участник? Вопрос может потребовать объяснения, а не изменения прав.', 'Who performs the action? In which states? What should another participant see? The question may need an explanation rather than a permission change.'),
-      affects: t('Конкретное действие, его условия и роли участников. Сначала проверяем текущее поведение и ожидаемый порядок работы.', 'The specific action, its conditions and participant roles. First check the current behavior and the intended workflow.'),
-      checks: [t('Нужный участник может выполнить действие на нужном этапе.', 'The intended participant can act at the appropriate stage.'), t('Другой участник не получает лишних возможностей.', 'Another participant does not gain unnecessary permissions.'), t('Вопрос закрывается понятным ответом или отдельным изменением.', 'The question ends in a clear answer or a separate change.')],
-      result: t('Команда получает объяснение правила или точную заявку на его изменение. Это иллюстрация подхода, без проверки реальных прав посетителя.', 'The team receives an explanation of the rule or a precise request to change it. This illustrates the approach without checking a visitor’s real permissions.'),
-    },
+  const documentSteps = [
+    [t('Файл договора', 'Contract file'), t('Текст документа, PDF или скан становится входом для внутреннего сервиса.', 'A document, PDF or scan becomes the input for the internal service.')],
+    [t('Предложения с источником', 'Suggestions with a source'), t('Сервис готовит значения полей и показывает, на какой фрагмент документа они опираются.', 'The service prepares field values and shows the document passage behind each suggestion.')],
+    [t('Проверка и применение', 'Review and apply'), t('Человек выбирает нужные предложения и переносит их в форму. Применение можно отменить.', 'A person selects the suggestions they need and applies them to the form. They can undo the application.')],
   ];
-  const example = examples.find(item => item.id === selected);
-  return <div className="container page-content product-pages">
-    <PageIntro eyebrow={t('Сценарии', 'Scenarios')} title={t('Начинается с обычного рабочего вопроса', 'It starts with an everyday work question')}>{t('Три вымышленных примера показывают, зачем связывать запрос с конкретным местом системы и заранее договариваться о проверке.', 'Three synthetic examples show why a request needs a specific place in the system and an agreed way to check the outcome.')}</PageIntro>
-    <div className="pp-case-picker" role="group" aria-label={t('Выбрать рабочую ситуацию', 'Choose a work scenario')}>{examples.map(item => <button type="button" key={item.id} aria-pressed={selected === item.id} aria-controls="scenario-content" onClick={() => setSelected(item.id)}>{item.label}</button>)}</div>
-    <article id="scenario-content" className="pp-case" aria-live="polite"><span className="tag">{t('Учебный разбор', 'Illustrative case')}</span><h2>{example.title}</h2><p className="pp-case-before">{example.before}</p><blockquote>{example.request}</blockquote><div className="pp-case-columns"><section><h3>{t('Сначала уточним', 'Clarify first')}</h3><p>{example.clarify}</p><h3>{t('Где искать изменение', 'Where the change belongs')}</h3><p>{example.affects}</p></section><section className="pp-checklist"><h3>{t('По чему принимать результат', 'How to review the result')}</h3><ul>{example.checks.map(check => <li key={check}><CheckIcon size={17}/><span>{check}</span></li>)}</ul></section></div><p className="pp-case-result">{example.result}</p><a className="button" href={selected === 'approval' ? '#demo' : '#contact'}>{selected === 'approval' ? t('Пройти этот пример', 'Try this example') : t('Обсудить похожую задачу', 'Discuss a similar task')}<ArrowRightIcon size={18}/></a></article>
-    <NextStep title={t('За каждым шагом есть человек, который решает', 'Each step has a person who decides')} to="team">{t('Как работает команда', 'How the team works')}</NextStep>
+  const implementation = [
+    [t('Сервис распознавания', 'Extraction service'), t('Извлечение текста из документов и сканов, подготовка значений для полей договора.', 'Text extraction from documents and scans, with values prepared for contract fields.')],
+    [t('Помощник в форме', 'In-form assistant'), t('Предложения находятся рядом с работой сотрудника: их можно просмотреть, выбрать и применить к незаписанной форме.', 'Suggestions stay next to the person’s work: they can review, select and apply them to the unsaved form.')],
+    [t('Правила проверки', 'Validation rules'), t('Контрагент сопоставляется со справочником с учетом прав пользователя. Неоднозначные значения остаются на проверку человеку.', 'The counterparty is matched against the directory using the user’s permissions. Ambiguous values are left for a person to check.')],
+  ];
+  return <div className="container page-content product-pages pp-real-cases">
+    <PageIntro eyebrow={t('Реальные задачи', 'Real project work')} title={t('Что меняется в работе человека', 'What changes in a person’s work')}>{t('Два примера из разработки ELMA: подготовка данных из документа и устранение повторного согласования. В каждом важен конкретный рабочий результат.', 'Two examples from ELMA development: preparing data from a document and removing repeated approval. Each is about a concrete change in everyday work.')}</PageIntro>
+
+    <article className="pp-project-case" aria-labelledby="document-case-title">
+      <header className="pp-project-case-heading">
+        <p className="eyebrow">{t('Управление договорами · Внутренний сервис', 'Contract management · Internal service')}</p>
+        <h2 id="document-case-title">{t('Из файла договора - в предложения для карточки', 'From a contract file to suggestions for the record')}</h2>
+        <p>{t('Вместо переноса реквизитов по одному сотрудник получает подготовленные предложения и проверяет их в форме договора.', 'Instead of transferring details one by one, a person receives prepared suggestions and checks them in the contract form.')}</p>
+      </header>
+
+      <div className="pp-work-change">
+        <section aria-labelledby="document-before-title"><p className="pp-case-label" id="document-before-title">{t('Раньше', 'Before')}</p><h3>{t('Найти и перенести вручную', 'Find and enter by hand')}</h3><p>{t('Открыть документ, найти реквизиты, перенести значения в карточку и сверить их с исходным файлом.', 'Open the document, find its details, enter the values into the record and compare them with the source file.')}</p></section>
+        <section className="pp-work-change-after" aria-labelledby="document-after-title"><p className="pp-case-label" id="document-after-title">{t('Теперь', 'After')}</p><h3>{t('Проверить и применить предложения', 'Review and apply suggestions')}</h3><p>{t('Открыть помощник в форме, увидеть подготовленные значения с фрагментами источника, выбрать нужное и применить.', 'Open the assistant in the form, see prepared values with source passages, select what is needed and apply it.')}</p></section>
+      </div>
+
+      <section className="pp-case-path-section" aria-labelledby="document-path-title">
+        <h3 id="document-path-title">{t('Как работает помощник', 'How the assistant works')}</h3>
+        <ol className="pp-case-path">{documentSteps.map(([title, description]) => <li key={title}><h4>{title}</h4><p>{description}</p></li>)}</ol>
+      </section>
+
+      <section className="pp-case-build" aria-labelledby="document-build-title">
+        <div><p className="eyebrow">{t('Что было разработано', 'What was built')}</p><h3 id="document-build-title">{t('Сервис и форма работают вместе', 'The service and form work together')}</h3><p>{t('За понятным действием в карточке стоят обработка разных форматов, сопоставление данных и правила работы с неоднозначным ответом.', 'Behind the simple action in the form are file handling, data matching and rules for ambiguous answers.')}</p></div>
+        <dl>{implementation.map(([title, description]) => <div key={title}><dt>{title}</dt><dd>{description}</dd></div>)}</dl>
+      </section>
+      <p className="pp-case-outcome"><CheckIcon size={20}/><span>{t('Результат для сотрудника: работать с подготовленными данными в привычной форме и сохранять решение о том, что применить.', 'The result for the person: work with prepared data in the familiar form and keep control over what to apply.')}</span></p>
+    </article>
+
+    <article className="pp-project-case pp-project-case-compact" aria-labelledby="approval-case-title">
+      <header className="pp-project-case-heading">
+        <p className="eyebrow">{t('Управление договорами · Маршрут согласования', 'Contract management · Approval workflow')}</p>
+        <h2 id="approval-case-title">{t('Не принимать то же решение повторно', 'Avoid making the same decision again')}</h2>
+        <p>{t('Если один человек встречается на нескольких этапах, система учитывает уже принятое им решение по той же неизмененной версии документа.', 'When the same person appears at several stages, the system carries forward the decision they have already made on the same unchanged document version.')}</p>
+      </header>
+      <div className="pp-work-change">
+        <section aria-labelledby="approval-before-title"><p className="pp-case-label" id="approval-before-title">{t('Раньше', 'Before')}</p><h3>{t('Тот же договор возвращается на согласование', 'The same contract returns for approval')}</h3><p>{t('Участник попадает в несколько частей маршрута и снова получает задачу согласовать уже проверенный документ.', 'A participant appears in several parts of the workflow and receives another approval task for a document they have already reviewed.')}</p></section>
+        <section className="pp-work-change-after" aria-labelledby="approval-after-title"><p className="pp-case-label" id="approval-after-title">{t('Теперь', 'After')}</p><h3>{t('Предыдущее решение учитывается дальше', 'The earlier decision carries forward')}</h3><p>{t('Повторный шаг для того же человека и неизмененной версии пропускается. При замещении учитывается тот, кто действительно выполнил согласование.', 'The repeated step is skipped for the same person and unchanged version. When someone acts as a substitute, the person who actually approved is recorded.')}</p></section>
+      </div>
+      <div className="pp-case-rule"><h3>{t('Изменился документ - нужна новая проверка', 'A changed document needs a new review')}</h3><p>{t('Согласование относится к конкретной версии. Изменение или восстановление файла требует новой проверки, поэтому прежнее решение не скрывает новый смысл документа.', 'Approval belongs to a specific version. Changing or restoring the file requires a new review, so an earlier decision cannot conceal a change to the document.')}</p></div>
+    </article>
+
+    <section className="pp-case-bridge" aria-labelledby="case-method-title"><div><p className="eyebrow">{t('От отдельной задачи к способу работы', 'From one task to a way of working')}</p><h2 id="case-method-title">{t('Связать просьбу, изменение и проверенный результат', 'Connect the request, the change and the verified result')}</h2><p>{t('Важен весь путь: понять задачу, согласовать решение с аналитиком и владельцем продукта, выполнить работу, проверить и выпустить изменение.', 'The whole journey matters: understand the task, agree on a solution with the analyst and product owner, carry out the work, verify it and release the change.')}</p></div><a className="button secondary" href="#how">{t('Как проходит изменение', 'How a change moves through')}<ArrowRightIcon size={18}/></a></section>
+    <NextStep title={t('Начнем с одной задачи в вашей ELMA', 'Start with one task in your ELMA')} to="contact">{t('Разобрать задачу', 'Discuss a task')}</NextStep>
   </div>;
 }
 
@@ -112,7 +128,7 @@ function Team({ t }) {
   const roles = [
     [t('Заказчик', 'Requester'), t('Объясняет проблему и отвечает на вопросы', 'Explains the problem and answers questions'), t('Видит собственную заявку, уточнения и ход работы. Может описать ожидаемый результат на языке своей задачи.', 'Sees their request, clarifications and progress. Describes the desired result in the language of their work.')],
     [t('Аналитик', 'Analyst'), t('Проверяет, что команда одинаково поняла задачу', 'Checks that the team shares the same understanding'), t('Связывает запрос с системой, уточняет условия и проверяет результат по согласованным требованиям.', 'Connects the request to the system, clarifies conditions and checks the result against agreed requirements.')],
-    [t('Владелец продукта', 'Product owner'), t('Собирает работу в осмысленный результат', 'Brings the work into a meaningful outcome'), t('Определяет состав пакета и подтверждает, что результат подходит продукту. Его приемка дополняет проверку аналитика.', 'Determines the package scope and confirms the result fits the product. Their acceptance complements the analyst’s review.')],
+    [t('Владелец продукта', 'Product owner'), t('Собирает работу в осмысленный результат', 'Brings the work into a meaningful outcome'), t('До разработки подтверждает необходимость работы. После приемки аналитиком утверждает передачу результата в прод.', 'Confirms that the work is needed before development. After the analyst accepts the result, approves its transfer to production.')],
     [t('Инженер', 'Engineer'), t('Готовит изменение и его техническую проверку', 'Prepares the change and its technical verification'), t('Работает с версиями, условиями выполнения и результатом разработки. Фиксирует сделанное и то, что предстоит проверить людям.', 'Works with versions, execution conditions and development results. Records the work and what people need to check.')],
     [t('Администратор', 'Administrator'), t('Организует доступ участников', 'Organizes participant access'), t('Назначает роли участникам и организует доступ к рабочему пространству. Подключением сред занимается инженер или оператор. Бизнес-решения остаются у ответственных за них людей.', 'Assigns participant roles and organizes workspace access. An engineer or operator connects the environments. Business decisions stay with the people responsible for them.')],
   ];
@@ -120,7 +136,7 @@ function Team({ t }) {
     [t('Почему Wiki, если здесь есть работа над изменениями?', 'Why “Wiki” if it also manages changes?'), t('Проект начался с желания разобраться в сложной системе. Постепенно к этому контексту добавились заявки, обсуждения и проверка результата. Название осталось, а рабочий путь стал шире.', 'The project began with understanding a complex system. Requests, discussions and result verification grew around that context. The name stayed while the working journey expanded.')],
     [t('Нужно заменить ELMA365 или ее дизайнер?', 'Does this replace ELMA365 or its designer?'), t('Рабочие процессы продолжают выполняться в ELMA365. Wiki помогает команде понимать конфигурацию и организовывать изменения; существующие средства платформы остаются частью работы.', 'Business processes continue to run in ELMA365. Wiki helps the team understand configuration and organize changes; the platform’s existing tools remain part of the work.')],
     [t('Что происходит с задачами из Redmine?', 'What happens to Redmine tasks?'), t('Redmine остается источником собственных задач. Wiki читает их и помогает вести связанную работу. Запись изменений обратно в Redmine сейчас не выполняется.', 'Redmine remains the source of its own tasks. Wiki reads them and helps manage related work. It does not currently write changes back to Redmine.')],
-    [t('ИИ сам меняет рабочую систему?', 'Does AI change the live system on its own?'), t('Анализ читает рабочую систему без изменений. Разработка выполняется в отдельной среде DEV2 и проходит проверку. Приемку дают аналитик и владелец продукта, два разных человека. Перенос в рабочую среду выполняет партнер. Полный цикл, включая выпуск в прод, уже работает.', 'Analysis reads the live system without changes. Development runs in the separate DEV2 environment and is reviewed. Two different people, the analyst and product owner, give acceptance. A partner transfers changes to production. The full workflow, including production releases, is already operational.')],
+    [t('ИИ сам меняет рабочую систему?', 'Does AI change the live system on its own?'), t('ИИ сначала предлагает решение и ожидаемый результат. Разработку допускают живой аналитик и владелец продукта. Подготовленное изменение проверяется на выбранном сервере. Аналитик принимает результат по сценарию ИИ, затем владелец утверждает передачу в прод. Полный рабочий цикл уже действует.', 'AI first proposes a solution and expected result. A human analyst and product owner authorize development. The prepared change is checked on the selected server. The analyst accepts it using the AI-prepared scenario, then the owner approves its transfer to production. The full workflow is already operational.')],
     [t('Что я могу попробовать на этом сайте?', 'What can I try on this website?'), t('Учебный маршрут согласования: изменить порог суммы, сравнить поведение и пройти приемку. Прогресс сохраняется в этом браузере. Сайт не подключается к вашей ELMA, не запускает AIWorks и не предлагает вход в рабочую систему.', 'A sample approval journey: change the threshold, compare behavior and complete acceptance. Progress is saved in this browser. The site does not connect to your ELMA, run AIWorks or provide access to a working system.')],
     [t('С чего начать разговор о похожем решении?', 'Where should a conversation about a similar solution start?'), t('С одного процесса и одного повторяющегося затруднения. Например: заявки теряют контекст, требования приходится объяснять заново или непонятно, как принимать результат. Этого достаточно, чтобы обсудить подход.', 'Start with one process and one recurring difficulty: requests lose context, requirements need explaining again, or nobody knows how to accept the result. That is enough to discuss the approach.')],
   ];
@@ -129,7 +145,7 @@ function Team({ t }) {
     <section className="pp-role-list" aria-label={t('Участники работы', 'Participants')}>{roles.map(([name, action, description]) => <article key={name}><p className="eyebrow">{name}</p><div><h2>{action}</h2><p>{description}</p></div></article>)}</section>
     <section className="pp-human-rule"><h2>{t('ИИ помогает подготовить решение. Люди принимают результат.', 'AI helps prepare a solution. People accept the result.')}</h2><p>{t('Важно сохранить не только ответ модели, но и вопрос человека, основания решения и условия проверки. Тогда следующий участник видит, почему работа идет именно так.', 'Keep the person’s question, the reasons for the decision and the review conditions alongside the model’s answer. The next participant can then understand why the work follows this path.')}</p></section>
     <section className="pp-section pp-faq" aria-labelledby="faq-title"><div className="pp-section-intro"><p className="eyebrow">{t('Перед первым разговором', 'Before a first conversation')}</p><h2 id="faq-title">{t('Что еще стоит знать', 'A few useful details')}</h2></div>{questions.map(([question, answer]) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</section>
-    <NextStep title={t('Есть процесс, в котором вы узнаете свою ситуацию?', 'Recognize a process from your own work?')} to="contact">{t('Рассказать о задаче', 'Describe your task')}</NextStep>
+    <NextStep title={t('Есть процесс, в котором вы узнаете свою ситуацию?', 'Recognize a process from your own work?')} to="contact">{t('Разобрать задачу', 'Discuss a task')}</NextStep>
   </div>;
 }
 

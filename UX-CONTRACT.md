@@ -4,7 +4,7 @@
 RU/EN marketing site, synthetic contract-approval walkthrough, author introduction, contact preview and launch notes. Frontend only. Private Sites preview until the owner chooses a public launch.
 
 ## Primary journey
-Home -> Try -> Context -> editable request and threshold -> prepared solution -> before/after + three boundary checks -> two-role acceptance -> result. A changed threshold determines the synthetic routing condition. Request prose is preserved verbatim and is not interpreted by an AI.
+Marketing: Home -> real case -> How we work -> Discuss a task. The main action keeps the same label across pages. Contact prepares a local draft and explicitly says it is not sent. The educational journey remains secondary: sample context -> editable request and threshold -> prepared solution -> before/after + three boundary checks -> two-role acceptance -> result. A changed threshold determines the synthetic routing condition. Request prose is preserved verbatim and is not interpreted by an AI.
 
 ## State ownership
 - Demo component persists synthetic progress in `localStorage` under `elma-wiki-public-demo-v1`; bounded validation and storage-failure feedback. No cross-device persistence or authentication.
@@ -14,7 +14,9 @@ Home -> Try -> Context -> editable request and threshold -> prepared solution ->
 
 ## Product explanation
 
-Additional routes: `#capabilities`, `#examples`, `#team`. They explain the product and use synthetic examples. Workspace and scenario selectors change local page state only; they do not create a request or call AIWorks. Choices expose pressed state and retain keyboard focus. The runnable approval example remains at `#demo`; other scenarios are labeled illustrative. Language switches update all explanatory content without changing demo records. Roles in acceptance are analyst and product owner.
+Primary navigation: `#home`, `#examples`, `#how`, plus the inquiry action `#contact`. `#examples` presents two anonymized real implementation cases: contract fields suggested from a file, and avoiding duplicate approval of the same unchanged document version. No measured savings or customer data are invented. `#how` separates human decisions from .e365 technical execution and explicitly identifies the separate AIWorks farm. Analyst agreement and product-owner confirmation are both required before development; final analyst acceptance follows the AI-prepared scenario, then the owner approves transfer to production.
+
+Secondary routes `#capabilities`, `#team`, `#modules`, `#requests`, `#demo`, `#about`, `#launch` remain addressable. The educational workspace and runnable approval journey are clearly labeled synthetic. Local choices never call ELMA or AIWorks. Language switches update explanations and visible validation errors without overwriting entered text or demo records. Actual aggregate metrics await owner data in issue #13.
 
 ## Capability ownership
 Form: labeled native inputs with inline errors, first error focus, max lengths and numeric threshold constraints. Success is preview only.
