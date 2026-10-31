@@ -53,6 +53,14 @@ Real iOS Safari and Russian carrier networks are not available in this browser e
 - [x] Remove temporary QA harness
 - [x] Original Sites version 1 published from `b248c6d456ca495f23bb747c1a48c3a03056cf86` (confirmed through Sites version metadata during migration).
 
+## Contact form delivery
+
+Browser check in desktop Chrome, 31 October 2026, against the running service with a stub mailer. Not checked: a real Gmail send, phone widths, iOS Safari.
+
+- With `VITE_CONTACT_ENDPOINT`: empty form shows inline errors and focuses the first one. Submit disables the button and shows the sending label. A confirmed answer shows the received state and focuses its heading; the stub mailer received one mail.
+- Service stopped: inline error, focus on the error, text kept in the form. After a restart the same text was accepted on retry.
+- Without the variable: preview says nothing was sent, no honeypot field, zero `fetch` calls.
+
 ## Repository migration
 
 Application source and runtime behavior are unchanged. This is the retained original visual review, not a new browser or iOS Safari test. Migration build and Worker results are recorded in the import PR. See `docs/REPOSITORY_MIGRATION.md`.

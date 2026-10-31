@@ -16,11 +16,13 @@ npm run dev           # Vite dev server
 npm run build         # vite build, then scripts/prepare-sites-build.mjs
 npm run preview       # serve the built client
 npm run test:sites    # node:test worker and packaging contract; run after build
+npm run test:contact  # contact service and form client; needs no build
+npm run server        # contact service; needs the env settings in docs/DEPLOYMENT.md
 node --test --test-name-pattern="falls back" tests/sites-worker.test.mjs   # single test
 ```
 
 - `test:sites` fails without a prior `npm run build`: its last test checks for files in `dist/`.
-- CI (`.github/workflows/ci.yml`) runs `npm ci`, `build`, `test:sites`. There is no linter, and no tests for the UI in `src/`; UI behaviour is verified in a browser against `UX-CONTRACT.md`, with evidence recorded in `design-qa.md`.
+- CI (`.github/workflows/ci.yml`) runs `npm ci`, `build`, `test:sites`, `test:contact`. There is no linter, and no component tests for the UI in `src/`; UI behaviour is verified in a browser against `UX-CONTRACT.md`, with evidence recorded in `design-qa.md`.
 - Run the dev server yourself and check the page in a browser instead of telling the user to start it.
 
 ## Architecture
@@ -33,10 +35,12 @@ node --test --test-name-pattern="falls back" tests/sites-worker.test.mjs   # sin
 
 **State ownership (see `UX-CONTRACT.md`).**
 - The demo persists to `localStorage` under `elma-wiki-public-demo-v1`. `readDemo()` in `Demo.jsx` validates the stored shape and falls back to `INITIAL`; update that validation when the shape changes. Storage failure is reported inline.
-- Contact fields stay in component memory. The form only previews and makes no network call, and the UI must keep saying it was not sent until real delivery exists (issue #1).
+- Contact fields stay in component memory until submit. `VITE_CONTACT_ENDPOINT` is read at build time: unset, the form only previews, says it was not sent and makes no network call; set, it posts to the contact service. Sites has no such service, so the variable must stay unset there.
 - The demo is a prepared scenario with synthetic data. It never calls ELMA or AIWorks, and request text is kept verbatim rather than interpreted.
 
 **Two hosting outputs from one build.** `dist/client/` is the static site and is all that ordinary static hosting needs. For OpenAI Sites, `prepare-sites-build.mjs` also copies `worker/index.js` to `dist/server/index.js` and `.openai/hosting.json` to `dist/.openai/hosting.json`. The Worker serves assets and falls back to `index.html` only for 404s on HTML GET/HEAD requests, so missing API or write requests stay 404.
+
+**Contact service (`server/`) is a separate Node process, not part of the Worker.** `contact-handler.mjs` works on Web `Request`/`Response` with injected store and mailer, so the host-specific parts are `app.mjs` (node:http), `file-store.mjs` and `smtp-mailer.mjs`. The order matters: validate, recognise a repeated id, rate-limit, store durably, then mail. A mail failure still answers 202 because the request is safe on disk; `retryPending` delivers it later. The client-generated UUID makes retries idempotent, so `Contact.jsx` reuses it for unchanged text and drops it on any edit.
 
 ## Constraints
 
