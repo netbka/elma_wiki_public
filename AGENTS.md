@@ -6,6 +6,8 @@ Owner direction 2026-10-31: expand the first website sketch into a substantive e
 
 Latest owner direction: continue code work in this repository; do not update the registered Sites publication unless explicitly asked again. Adopt the actual internal Wiki organization of modules and requests. Preserve module composition, form/process context, element-linked requests, stage/next participant and request detail anatomy, using synthetic browser-local data in the public project.
 
+Owner direction 2026-11-01: pause further design/content expansion until the website's primary audience, goal, core demonstration and visitor outcome are discussed. Existing breadth is not an approved positioning brief. Keep the author's name out of the first screen; attribution belongs in the footer/about page. Do not treat proposed audiences or formats as approved decisions.
+
 Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
 
 Before making substantial visual changes, use the Product Design plugin's `get-context` skill when the visual source is unclear or no longer matches the current goal. When the user gives durable prototype-specific design feedback, preferences, or decisions, record them in `AGENTS.md`.
