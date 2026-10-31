@@ -14,6 +14,8 @@ Approved positioning choices 2026-11-01: the site should bring new automation pr
 
 Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
 
+Latest owner feedback 2026-11-01: the flagship case should show removal of manual work. Research actual PRs across the solution repositories, including elma365, for document-recognition service development, contract access and removal of duplicate approval. Keep actual module names and request-to-module bindings. Use only dated real aggregate counts from the working source for product statistics; synthetic demo counters and mixed Redmine/Wiki totals are not a substitute. Clearly explain that AIWorks is a separate task-execution and visual-browser-worker farm. Reconsider the historical Wiki name, but do not rename the product before a choice. See `docs/PRESENTATION_REVIEW.md` for research and proposed hierarchy.
+
 Before making substantial visual changes, use the Product Design plugin's `get-context` skill when the visual source is unclear or no longer matches the current goal. When the user gives durable prototype-specific design feedback, preferences, or decisions, record them in `AGENTS.md`.
 
 When implementing from a selected generated mock, treat that image as the source of truth for layout, component anatomy, density, spacing, color, typography, visible content, and hierarchy.
