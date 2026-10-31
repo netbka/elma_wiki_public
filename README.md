@@ -49,3 +49,11 @@ npm run test:sites
 - [Отправка обращений на Gmail](https://github.com/netbka/elma_wiki_public/issues/1).
 - [Публичный запуск, домен и доступность из РФ](https://github.com/netbka/elma_wiki_public/issues/2).
 - [Личная демосреда между устройствами, следующий этап](https://github.com/netbka/elma_wiki_public/issues/3).
+
+## Модули и заявки
+
+Рабочее демо теперь содержит `#modules`, `#modules/contracts`, `#requests`, `#requests/new` и `#requests/W-14`. Из поля или шага можно создать локальную заявку, открыть ее карточку и добавить комментарий. Поиск, фильтры и место выбора сохраняются в адресе; заявки и комментарии - в браузере.
+
+Проверка целостности локальных записей: `npm run test:workspace`. Структура экранов взята из текущей внутренней Wiki, данные вымышлены. Подробности: [WORKSPACE_ADAPTATION.md](docs/WORKSPACE_ADAPTATION.md).
+
+По последнему указанию владельца изменения ведутся в коде и GitHub. Публикация в Sites автоматически не обновляется.

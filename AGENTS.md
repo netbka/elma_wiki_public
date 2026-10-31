@@ -4,6 +4,8 @@ Canonical repository: `netbka/elma_wiki_public`. File public website PRs and iss
 
 Owner direction 2026-10-31: expand the first website sketch into a substantive explanation of the product. Preserve the approved calm visual direction. Show recognizable work situations, contextual requests, package work, actual comparisons, role responsibilities and result-specific acceptance. Keep runnable demo behavior distinct from illustrative scenarios. Do not imply a universal self-service SaaS or completed autonomous production delivery. Final package acceptance roles are analyst and product owner.
 
+Latest owner direction: continue code work in this repository; do not update the registered Sites publication unless explicitly asked again. Adopt the actual internal Wiki organization of modules and requests. Preserve module composition, form/process context, element-linked requests, stage/next participant and request detail anatomy, using synthetic browser-local data in the public project.
+
 Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
 
 Before making substantial visual changes, use the Product Design plugin's `get-context` skill when the visual source is unclear or no longer matches the current goal. When the user gives durable prototype-specific design feedback, preferences, or decisions, record them in `AGENTS.md`.
