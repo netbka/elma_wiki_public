@@ -29,3 +29,7 @@ Content expansion: shared section headings, question rows and a handoff record i
 
 # Do and don't
 Keep product claims concrete and connected to the project. Distinguish synthetic calculations from live AIWorks and ELMA integration. Preserve human responsibility for acceptance. Do not fabricate statistics, testimonials or sent-mail confirmations. Do not use real customer or repository data in the demo.
+
+# Modules and requests
+
+The local workspace adapts the actual Wiki anatomy: module composition, selected form/process and element details; request stage and next participant, context and discussion. Existing color tokens and typography remain canonical in styles.css. Workspace-specific selectors are scoped in src/workspace/*.css. Lists use compact working UI rather than marketing cards. On narrow widths, module panes stack; request tables prioritize number, title and stage, while detail retains the secondary metadata. Native selects keep platform-owned popup geometry.

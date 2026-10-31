@@ -39,7 +39,7 @@ function WorkspaceSample({ t }) {
     <div id="workspace-sample-content" className="pp-workspace-rows" aria-live="polite">
       {rows[view].map(([title, description, next]) => <article className="pp-workspace-row" key={title}><div><h3>{title}</h3><p>{description}</p></div><span className="pp-next-label">{next}</span></article>)}
     </div>
-    <p className="pp-sample-note">{t('Переключайте разделы, чтобы увидеть принцип организации. Это упрощенные примеры экранов, данные в рабочую систему не отправляются.', 'Switch sections to explore the organization. These are simplified screen examples; nothing is sent to a working system.')}</p>
+    <div className="pp-workspace-open"><a className="button secondary" href="#modules">{t('Открыть модули и заявки','Open modules and requests')}<ArrowRightIcon size={17}/></a></div><p className="pp-sample-note">{t('Переключайте разделы, чтобы увидеть принцип организации. Это упрощенные примеры экранов, данные в рабочую систему не отправляются.', 'Switch sections to explore the organization. These are simplified screen examples; nothing is sent to a working system.')}</p>
   </section>;
 }
 

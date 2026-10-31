@@ -97,3 +97,6 @@
  .pp-human-rule{padding:20px}
 }
 @media(forced-colors:active){.pp-view-switch button[aria-pressed=true],.pp-case-picker button[aria-pressed=true]{border-color:Highlight}}
+
+.pp-workspace-open{padding:0 28px 20px}
+@media(max-width:520px){.pp-workspace-open{padding:0 18px 18px}.pp-workspace-open .button{width:100%;font-size:13px}}
