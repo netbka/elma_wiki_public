@@ -80,18 +80,31 @@ function Examples({ t }) {
     [t('Правила проверки', 'Validation rules'), t('Контрагент сопоставляется со справочником с учетом прав пользователя. Неоднозначные значения остаются на проверку человеку.', 'The counterparty is matched against the directory using the user’s permissions. Ambiguous values are left for a person to check.')],
   ];
   return <div className="container page-content product-pages pp-real-cases">
-    <PageIntro eyebrow={t('Реальные задачи', 'Real project work')} title={t('Что меняется в работе человека', 'What changes in a person’s work')}>{t('Два примера из разработки ELMA: подготовка данных из документа и устранение повторного согласования. В каждом важен конкретный рабочий результат.', 'Two examples from ELMA development: preparing data from a document and removing repeated approval. Each is about a concrete change in everyday work.')}</PageIntro>
+    <PageIntro eyebrow={t('Реальные задачи', 'Real project work')} title={t('Что меняется в работе человека', 'What changes in a person’s work')}>{t('Два примера из разработки ELMA: устранение повторного согласования и подготовка данных из документа. В каждом важен конкретный рабочий результат.', 'Two examples from ELMA development: removing repeated approval and preparing data from a document. Each is about a concrete change in everyday work.')}</PageIntro>
+
+    <article className="pp-project-case pp-project-case-compact" aria-labelledby="approval-case-title">
+      <header className="pp-project-case-heading">
+        <p className="eyebrow">{t('Управление договорами · Маршрут согласования', 'Contract management · Approval workflow')}</p>
+        <h2 id="approval-case-title">{t('Не принимать то же решение повторно', 'Avoid making the same decision again')}</h2>
+        <p>{t('Если один человек встречается на нескольких этапах, система учитывает уже принятое им решение по той же неизмененной версии документа. Это изменение выпущено в рабочую систему.', 'When the same person appears at several stages, the system carries forward the decision they have already made on the same unchanged document version. This change has been released to the live system.')}</p>
+      </header>
+      <div className="pp-work-change">
+        <section aria-labelledby="approval-before-title"><p className="pp-case-label" id="approval-before-title">{t('Раньше', 'Before')}</p><h3>{t('Тот же договор возвращается на согласование', 'The same contract returns for approval')}</h3><p>{t('Участник попадает в несколько частей маршрута и снова получает задачу согласовать уже проверенный документ.', 'A participant appears in several parts of the workflow and receives another approval task for a document they have already reviewed.')}</p></section>
+        <section className="pp-work-change-after" aria-labelledby="approval-after-title"><p className="pp-case-label" id="approval-after-title">{t('Теперь', 'After')}</p><h3>{t('Предыдущее решение учитывается дальше', 'The earlier decision carries forward')}</h3><p>{t('Повторный шаг для того же человека и неизмененной версии пропускается. При замещении учитывается тот, кто действительно выполнил согласование.', 'The repeated step is skipped for the same person and unchanged version. When someone acts as a substitute, the person who actually approved is recorded.')}</p></section>
+      </div>
+      <div className="pp-case-rule"><h3>{t('Изменился документ - нужна новая проверка', 'A changed document needs a new review')}</h3><p>{t('Согласование относится к конкретной версии. Изменение или восстановление файла требует новой проверки, поэтому прежнее решение не скрывает новый смысл документа.', 'Approval belongs to a specific version. Changing or restoring the file requires a new review, so an earlier decision cannot conceal a change to the document.')}</p></div>
+    </article>
 
     <article className="pp-project-case" aria-labelledby="document-case-title">
       <header className="pp-project-case-heading">
         <p className="eyebrow">{t('Управление договорами · Внутренний сервис', 'Contract management · Internal service')}</p>
         <h2 id="document-case-title">{t('Из файла договора - в предложения для карточки', 'From a contract file to suggestions for the record')}</h2>
-        <p>{t('Вместо переноса реквизитов по одному сотрудник получает подготовленные предложения и проверяет их в форме договора.', 'Instead of transferring details one by one, a person receives prepared suggestions and checks them in the contract form.')}</p>
+        <p>{t('Вместо переноса реквизитов по одному сотрудник получает подготовленные предложения и проверяет их в форме договора. Сейчас решение проходит проверку на тестовом сервере и в рабочую систему еще не выпущено.', 'Instead of transferring details one by one, a person receives prepared suggestions and checks them in the contract form. The solution is now being checked on a test server and has not yet been released to the live system.')}</p>
       </header>
 
       <div className="pp-work-change">
-        <section aria-labelledby="document-before-title"><p className="pp-case-label" id="document-before-title">{t('Раньше', 'Before')}</p><h3>{t('Найти и перенести вручную', 'Find and enter by hand')}</h3><p>{t('Открыть документ, найти реквизиты, перенести значения в карточку и сверить их с исходным файлом.', 'Open the document, find its details, enter the values into the record and compare them with the source file.')}</p></section>
-        <section className="pp-work-change-after" aria-labelledby="document-after-title"><p className="pp-case-label" id="document-after-title">{t('Теперь', 'After')}</p><h3>{t('Проверить и применить предложения', 'Review and apply suggestions')}</h3><p>{t('Открыть помощник в форме, увидеть подготовленные значения с фрагментами источника, выбрать нужное и применить.', 'Open the assistant in the form, see prepared values with source passages, select what is needed and apply it.')}</p></section>
+        <section aria-labelledby="document-before-title"><p className="pp-case-label" id="document-before-title">{t('Без помощника', 'Without the assistant')}</p><h3>{t('Найти и перенести вручную', 'Find and enter by hand')}</h3><p>{t('Открыть документ, найти реквизиты, перенести значения в карточку и сверить их с исходным файлом.', 'Open the document, find its details, enter the values into the record and compare them with the source file.')}</p></section>
+        <section className="pp-work-change-after" aria-labelledby="document-after-title"><p className="pp-case-label" id="document-after-title">{t('С помощником', 'With the assistant')}</p><h3>{t('Проверить и применить предложения', 'Review and apply suggestions')}</h3><p>{t('Открыть помощник в форме, увидеть подготовленные значения с фрагментами источника, выбрать нужное и применить.', 'Open the assistant in the form, see prepared values with source passages, select what is needed and apply it.')}</p></section>
       </div>
 
       <section className="pp-case-path-section" aria-labelledby="document-path-title">
@@ -103,20 +116,7 @@ function Examples({ t }) {
         <div><p className="eyebrow">{t('Что было разработано', 'What was built')}</p><h3 id="document-build-title">{t('Сервис и форма работают вместе', 'The service and form work together')}</h3><p>{t('За понятным действием в карточке стоят обработка разных форматов, сопоставление данных и правила работы с неоднозначным ответом.', 'Behind the simple action in the form are file handling, data matching and rules for ambiguous answers.')}</p></div>
         <dl>{implementation.map(([title, description]) => <div key={title}><dt>{title}</dt><dd>{description}</dd></div>)}</dl>
       </section>
-      <p className="pp-case-outcome"><CheckIcon size={20}/><span>{t('Результат для сотрудника: работать с подготовленными данными в привычной форме и сохранять решение о том, что применить.', 'The result for the person: work with prepared data in the familiar form and keep control over what to apply.')}</span></p>
-    </article>
-
-    <article className="pp-project-case pp-project-case-compact" aria-labelledby="approval-case-title">
-      <header className="pp-project-case-heading">
-        <p className="eyebrow">{t('Управление договорами · Маршрут согласования', 'Contract management · Approval workflow')}</p>
-        <h2 id="approval-case-title">{t('Не принимать то же решение повторно', 'Avoid making the same decision again')}</h2>
-        <p>{t('Если один человек встречается на нескольких этапах, система учитывает уже принятое им решение по той же неизмененной версии документа.', 'When the same person appears at several stages, the system carries forward the decision they have already made on the same unchanged document version.')}</p>
-      </header>
-      <div className="pp-work-change">
-        <section aria-labelledby="approval-before-title"><p className="pp-case-label" id="approval-before-title">{t('Раньше', 'Before')}</p><h3>{t('Тот же договор возвращается на согласование', 'The same contract returns for approval')}</h3><p>{t('Участник попадает в несколько частей маршрута и снова получает задачу согласовать уже проверенный документ.', 'A participant appears in several parts of the workflow and receives another approval task for a document they have already reviewed.')}</p></section>
-        <section className="pp-work-change-after" aria-labelledby="approval-after-title"><p className="pp-case-label" id="approval-after-title">{t('Теперь', 'After')}</p><h3>{t('Предыдущее решение учитывается дальше', 'The earlier decision carries forward')}</h3><p>{t('Повторный шаг для того же человека и неизмененной версии пропускается. При замещении учитывается тот, кто действительно выполнил согласование.', 'The repeated step is skipped for the same person and unchanged version. When someone acts as a substitute, the person who actually approved is recorded.')}</p></section>
-      </div>
-      <div className="pp-case-rule"><h3>{t('Изменился документ - нужна новая проверка', 'A changed document needs a new review')}</h3><p>{t('Согласование относится к конкретной версии. Изменение или восстановление файла требует новой проверки, поэтому прежнее решение не скрывает новый смысл документа.', 'Approval belongs to a specific version. Changing or restoring the file requires a new review, so an earlier decision cannot conceal a change to the document.')}</p></div>
+      <p className="pp-case-outcome"><CheckIcon size={20}/><span>{t('Что это дает сотруднику: работать с подготовленными данными в привычной форме и сохранять решение о том, что применить.', 'What this gives the person: work with prepared data in the familiar form and keep control over what to apply.')}</span></p>
     </article>
 
     <section className="pp-case-bridge" aria-labelledby="case-method-title"><div><p className="eyebrow">{t('От отдельной задачи к способу работы', 'From one task to a way of working')}</p><h2 id="case-method-title">{t('Связать просьбу, изменение и проверенный результат', 'Connect the request, the change and the verified result')}</h2><p>{t('Важен весь путь: понять задачу, согласовать решение с аналитиком и владельцем продукта, выполнить работу, проверить и выпустить изменение.', 'The whole journey matters: understand the task, agree on a solution with the analyst and product owner, carry out the work, verify it and release the change.')}</p></div><a className="button secondary" href="#how">{t('Как проходит изменение', 'How a change moves through')}<ArrowRightIcon size={18}/></a></section>

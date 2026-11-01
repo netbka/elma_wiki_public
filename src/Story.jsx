@@ -4,26 +4,6 @@ import './story.css';
 
 const A = ({to, children, secondary=false}) => <a className={`button ${secondary?'secondary':''}`} href={`#${to}`}>{children}<ArrowRightIcon size={17}/></a>;
 
-export function HomeExpansion({t}) {
-  const questions = [
-    [t('Где начинается проблема?','Where does the problem start?'),t('В конкретном поле, форме или шаге процесса. Откройте это место и опишите, что должно измениться.','At a particular field, form or process step. Open that place and describe what should change.')],
-    [t('Все одинаково поняли задачу?','Does everyone understand the same task?'),t('Вопросы, ответы и согласованные требования остаются рядом с заявкой. Следующий участник видит, о чем договорились.','Questions, answers and agreed requirements stay with the request. The next person can see what was decided.')],
-    [t('Что мы на самом деле принимаем?','What are we actually accepting?'),t('Конкретный результат с перечнем изменений и проверок. После новой правки нужно проверить затронутый результат снова.','A specific result with its changes and checks. A new edit means the affected result needs another review.')]
-  ];
-  return <>
-    <section className="container story-section" aria-labelledby="questions-heading">
-      <div className="section-heading"><p className="eyebrow">{t('Знакомые рабочие вопросы','Familiar questions at work')}</p><h2 id="questions-heading">{t('«Поменяйте согласование» - это только начало разговора','“Change the approval flow” starts a conversation')}</h2><p>{t('Дальше нужно разобраться, что имеется в виду, какие правила затронуты и кто подтвердит, что задача решена. ELMA Wiki собирает эту работу вокруг самой системы.','Next, the team needs to understand the intent, the rules involved and who will confirm the result. ELMA Wiki connects this work to the system itself.')}</p></div>
-      <div className="question-list">{questions.map(([title,body])=><article key={title}><h3>{title}</h3><p>{body}</p></article>)}</div>
-      <a className="text-link" href="#modules">{t('Открыть учебные модули','Explore sample modules')}<ArrowRightIcon size={17}/></a>
-    </section>
-    <section className="story-section tint"><div className="container story-feature">
-      <div><p className="eyebrow">{t('От одной заявки к общей работе','From one request to shared work')}</p><h2>{t('У каждого свой экран. У задачи - одна история.','Different responsibilities. One request history.')}</h2><p className="quiet">{t('Заказчик объясняет задачу. Аналитик уточняет смысл и проверки. Владелец продукта определяет состав работы. Инженер видит подготовленное задание и результат.','The requester explains the need. The analyst clarifies the intent and checks. The product owner chooses the scope. The engineer sees the prepared task and its result.')}</p><A to="team" secondary>{t('Как работает команда','See the team workflow')}</A></div>
-      <div className="handoff-sample"><span className="tag">{t('Учебная заявка','Sample request')}</span><h3>{t('Согласование крупных договоров','Approval for high-value contracts')}</h3><dl><div><dt>{t('О чем договорились','Agreed requirement')}</dt><dd>{t('Финансовый директор участвует при сумме выше порога.','The finance director approves contracts above the threshold.')}</dd></div><div><dt>{t('Что нужно проверить','What to check')}</dt><dd>{t('Ниже порога, на границе и выше него.','Below, at and above the threshold.')}</dd></div><div><dt>{t('Чей следующий шаг','Who acts next')}</dt><dd><CheckCircleFillIcon size={17}/> {t('Аналитик и владелец продукта проверяют результат.','The analyst and product owner review the result.')}</dd></div></dl></div>
-    </div></section>
-    <section className="container story-section"><div className="story-feature"><div className="section-heading"><p className="eyebrow">{t('С чего начать знакомство','A place to start')}</p><h2>{t('Выберите ситуацию, которая похожа на вашу','Start with a situation you recognize')}</h2><p>{t('Добавить согласование, изменить форму или разобраться с доступом. В каждом примере важен весь путь: от слов человека до понятных критериев результата.','Add an approval, change a form or clarify access. Each example follows the whole journey from a person’s words to clear criteria for the result.')}</p></div><A to="examples">{t('Посмотреть сценарии','Explore scenarios')}</A></div></section>
-  </>;
-}
-
 export function HowPage({t}) {
   const technicalSteps = [
     [t('Выгрузить .e365', 'Export .e365'), t('Получить исходное решение из ELMA: формы, процессы, скрипты и их связи.', 'Capture the source solution from ELMA: forms, processes, scripts and their connections.')],
