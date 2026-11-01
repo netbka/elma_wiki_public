@@ -86,12 +86,12 @@ function Examples({ t }) {
       <header className="pp-project-case-heading">
         <p className="eyebrow">{t('Управление договорами · Внутренний сервис', 'Contract management · Internal service')}</p>
         <h2 id="document-case-title">{t('Из файла договора - в предложения для карточки', 'From a contract file to suggestions for the record')}</h2>
-        <p>{t('Вместо переноса реквизитов по одному сотрудник получает подготовленные предложения и проверяет их в форме договора.', 'Instead of transferring details one by one, a person receives prepared suggestions and checks them in the contract form.')}</p>
+        <p>{t('Вместо переноса реквизитов по одному сотрудник получает подготовленные предложения и проверяет их в форме договора. Сейчас решение проходит проверку на тестовом сервере и в рабочую систему еще не выпущено.', 'Instead of transferring details one by one, a person receives prepared suggestions and checks them in the contract form. The solution is now being checked on a test server and has not yet been released to the live system.')}</p>
       </header>
 
       <div className="pp-work-change">
-        <section aria-labelledby="document-before-title"><p className="pp-case-label" id="document-before-title">{t('Раньше', 'Before')}</p><h3>{t('Найти и перенести вручную', 'Find and enter by hand')}</h3><p>{t('Открыть документ, найти реквизиты, перенести значения в карточку и сверить их с исходным файлом.', 'Open the document, find its details, enter the values into the record and compare them with the source file.')}</p></section>
-        <section className="pp-work-change-after" aria-labelledby="document-after-title"><p className="pp-case-label" id="document-after-title">{t('Теперь', 'After')}</p><h3>{t('Проверить и применить предложения', 'Review and apply suggestions')}</h3><p>{t('Открыть помощник в форме, увидеть подготовленные значения с фрагментами источника, выбрать нужное и применить.', 'Open the assistant in the form, see prepared values with source passages, select what is needed and apply it.')}</p></section>
+        <section aria-labelledby="document-before-title"><p className="pp-case-label" id="document-before-title">{t('Без помощника', 'Without the assistant')}</p><h3>{t('Найти и перенести вручную', 'Find and enter by hand')}</h3><p>{t('Открыть документ, найти реквизиты, перенести значения в карточку и сверить их с исходным файлом.', 'Open the document, find its details, enter the values into the record and compare them with the source file.')}</p></section>
+        <section className="pp-work-change-after" aria-labelledby="document-after-title"><p className="pp-case-label" id="document-after-title">{t('С помощником', 'With the assistant')}</p><h3>{t('Проверить и применить предложения', 'Review and apply suggestions')}</h3><p>{t('Открыть помощник в форме, увидеть подготовленные значения с фрагментами источника, выбрать нужное и применить.', 'Open the assistant in the form, see prepared values with source passages, select what is needed and apply it.')}</p></section>
       </div>
 
       <section className="pp-case-path-section" aria-labelledby="document-path-title">
@@ -103,7 +103,7 @@ function Examples({ t }) {
         <div><p className="eyebrow">{t('Что было разработано', 'What was built')}</p><h3 id="document-build-title">{t('Сервис и форма работают вместе', 'The service and form work together')}</h3><p>{t('За понятным действием в карточке стоят обработка разных форматов, сопоставление данных и правила работы с неоднозначным ответом.', 'Behind the simple action in the form are file handling, data matching and rules for ambiguous answers.')}</p></div>
         <dl>{implementation.map(([title, description]) => <div key={title}><dt>{title}</dt><dd>{description}</dd></div>)}</dl>
       </section>
-      <p className="pp-case-outcome"><CheckIcon size={20}/><span>{t('Результат для сотрудника: работать с подготовленными данными в привычной форме и сохранять решение о том, что применить.', 'The result for the person: work with prepared data in the familiar form and keep control over what to apply.')}</span></p>
+      <p className="pp-case-outcome"><CheckIcon size={20}/><span>{t('Что это дает сотруднику: работать с подготовленными данными в привычной форме и сохранять решение о том, что применить.', 'What this gives the person: work with prepared data in the familiar form and keep control over what to apply.')}</span></p>
     </article>
 
     <article className="pp-project-case pp-project-case-compact" aria-labelledby="approval-case-title">
