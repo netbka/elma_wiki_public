@@ -14,6 +14,7 @@
 @media(max-width:520px){.header-inner{height:60px}.hero{padding-top:0;padding-bottom:18px;gap:18px}.hero h1{margin-top:18px}.hero-actions{gap:4px;margin-bottom:8px}.product-sample{padding:16px}.sample-top{margin-bottom:12px}.product-sample h2{font-size:21px;margin-bottom:14px}.sample-sub{display:none}.sample-request{padding-block:12px}.sample-request p{font-size:15px}.field-caption{font-size:12px}.sample-status{padding-block:14px}.sample-status strong{font-size:14px}.sample-status span{font-size:12px}.product-sample>.button{min-height:44px;font-size:13px}.tint.section{padding-top:24px}.tint .section-heading>.eyebrow{display:none}.tint .section-heading h2{font-size:26px}}
 body{min-width:0}
 @media(max-width:360px){.container{width:calc(100% - 40px)}.test-case{flex-wrap:wrap;align-items:flex-start}.process-flow li span{overflow-wrap:anywhere}.header-actions{gap:8px}.hero h1{font-size:29px;letter-spacing:-1px}}
+.contact-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 
 /* The project inquiry is the primary action; sample tools stay secondary. */
 .header-contact{white-space:nowrap;min-height:44px;padding:9px 16px;font-size:14px}
