@@ -16,13 +16,14 @@ npm run dev           # Vite dev server
 npm run build         # vite build, then scripts/prepare-sites-build.mjs
 npm run preview       # serve the built client
 npm run test:sites    # node:test worker and packaging contract; run after build
+npm run test:workspace # workspace contract
 npm run test:contact  # contact service and form client; needs no build
 npm run server        # contact service; needs the env settings in docs/DEPLOYMENT.md
 node --test --test-name-pattern="falls back" tests/sites-worker.test.mjs   # single test
 ```
 
 - `test:sites` fails without a prior `npm run build`: its last test checks for files in `dist/`.
-- CI (`.github/workflows/ci.yml`) runs `npm ci`, `build`, `test:sites`, `test:contact`. There is no linter, and no component tests for the UI in `src/`; UI behaviour is verified in a browser against `UX-CONTRACT.md`, with evidence recorded in `design-qa.md`.
+- CI (`.github/workflows/ci.yml`) runs `npm ci`, `build`, `test:sites`, `test:workspace`, `test:contact`. There is no linter, and no component tests for the UI in `src/`; UI behaviour is verified in a browser against `UX-CONTRACT.md`, with evidence recorded in `design-qa.md`.
 - Run the dev server yourself and check the page in a browser instead of telling the user to start it.
 
 ## Architecture
