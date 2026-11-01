@@ -2,12 +2,28 @@ const ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CONTROL = /[\u0000-\u001f\u007f]/;
 const MAX_BODY_BYTES = 16 * 1024;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 const json = (status, body, headers = {}) =>
   new Response(JSON.stringify(body), {
     status,
     headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store", ...headers },
   });
+
+// Stops reading at the limit, so an oversized body never accumulates in memory.
+async function readBody(request) {
+  if (!request.body) return "";
+  const reader = request.body.getReader();
+  const chunks = [];
+  let size = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) return Buffer.concat(chunks).toString("utf8");
+    size += value.byteLength;
+    if (size > MAX_BODY_BYTES) return null;
+    chunks.push(value);
+  }
+}
 
 export function validateSubmission(input) {
   const fields = [];
@@ -43,7 +59,7 @@ export function createRateLimiter({ max = 5, windowMs = 60 * 60 * 1000, now = Da
   };
 }
 
-export function createContactService({ store, mailer, limiter = createRateLimiter(), now = Date.now, log = console.error }) {
+export function createContactService({ store, mailer, limiter = createRateLimiter(), retentionDays, now = Date.now, log = console.error }) {
   const inFlight = new Set();
 
   // Delivery is at-least-once: a mail that sent but could not be marked is sent again by the retry.
@@ -68,8 +84,8 @@ export function createContactService({ store, mailer, limiter = createRateLimite
       return json(415, { error: "content-type" });
     }
 
-    const raw = await request.text();
-    if (new TextEncoder().encode(raw).length > MAX_BODY_BYTES) return json(413, { error: "too-large" });
+    const raw = await readBody(request);
+    if (raw === null) return json(413, { error: "too-large" }, { connection: "close" });
 
     let input;
     try {
@@ -105,5 +121,11 @@ export function createContactService({ store, mailer, limiter = createRateLimite
     for (const record of await store.pending()) await deliver(record);
   }
 
-  return { handle, retryPending };
+  // Undelivered requests stay until they reach the owner, whatever their age.
+  async function purgeExpired() {
+    const cutoff = new Date(now() - retentionDays * DAY_MS).toISOString();
+    return store.deleteDeliveredBefore(cutoff);
+  }
+
+  return { handle, retryPending, purgeExpired };
 }
