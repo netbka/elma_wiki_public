@@ -2,6 +2,8 @@
 
 Latest implementation review: [approved project positioning in code, 2026-11-01](docs/qa/implementation-2026-11-01/README.md). Homepage, real cases, human decisions and .e365/AIWorks execution now follow the agreed brief. The earlier evidence below records the original baseline.
 
+Follow-up to that review: page metadata matches the approved positioning and keeps the author's name out of search snippets; the AIWorks label on `#how` passes 4.5:1 on the surface colour; `#contact` no longer skips a heading level. Contrast and heading order were measured on all routes in desktop Chrome, and overflow on home, cases, how, contact and about at 11 widths from 320 to 1280 px in RU and EN.
+
 final result: passed (original prototype review; migration verification recorded separately)
 
 ## Visual truth and evidence
