@@ -8,6 +8,7 @@
     "build": "vite build && node scripts/prepare-sites-build.mjs",
     "preview": "vite preview",
     "test:sites": "node --test tests/sites-worker.test.mjs",
+    "test:workspace": "node --test tests/workspace.test.mjs",
     "test:contact": "node --test tests/contact.test.mjs",
     "server": "node server/index.mjs"
   },

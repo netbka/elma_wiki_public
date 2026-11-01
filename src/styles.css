@@ -15,3 +15,10 @@
 body{min-width:0}
 @media(max-width:360px){.container{width:calc(100% - 40px)}.test-case{flex-wrap:wrap;align-items:flex-start}.process-flow li span{overflow-wrap:anywhere}.header-actions{gap:8px}.hero h1{font-size:29px;letter-spacing:-1px}}
 .contact-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+
+/* The project inquiry is the primary action; sample tools stay secondary. */
+.header-contact{white-space:nowrap;min-height:44px;padding:9px 16px;font-size:14px}
+@media(max-width:640px){.header-contact{display:none}}
+
+/* Keeps the side heading at h3 size while the page outline stays h1 -> h2. */
+.contact-aside h2{font-size:20px;letter-spacing:-.25px;margin-bottom:1em}
