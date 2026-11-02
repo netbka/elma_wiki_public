@@ -88,7 +88,7 @@ export function Contact({t}){
           {errors.message&&<p id="message-error" role="alert" className="error-text">{messages.message}</p>}
           {ENDPOINT&&<div className="contact-trap" aria-hidden="true"><label htmlFor="contact-website">Website</label><input id="contact-website" tabIndex={-1} autoComplete="off" value={data.website} onChange={e=>update('website',e.target.value)}/></div>}
           {ENDPOINT
-            ?<p className="field-hint">{t('Обращение сохранится на сервере сайта и придёт автору на почту.','Your request is stored on the site’s server and delivered to the author by email.')}</p>
+            ?<p className="field-hint">{t('Имя, email и текст нужны только для ответа на это обращение. Они хранятся на сервере сайта 90 дней и приходят автору в почту Gmail. Чтобы удалить их раньше, напишите об этом в ответном письме.','Your name, email and text are used only to reply to this request. They are kept on the site’s server for 90 days and delivered to the author’s Gmail. To have them deleted sooner, say so in your reply.')}</p>
             :<p className="field-hint">{t('В прототипе данные никуда не отправляются и не сохраняются после закрытия страницы.','In this prototype, data is not sent anywhere and is not saved after you close the page.')}</p>}
           {failure&&<p id="contact-failure" role="alert" tabIndex={-1} className="error-text">{failures[failure]}</p>}
           <button className="button" type="submit" disabled={sending}>{ENDPOINT?(sending?t('Отправляем…','Sending…'):t('Отправить','Send')):t('Посмотреть черновик','Preview draft')}<ArrowRightIcon size={18}/></button>
