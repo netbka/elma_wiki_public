@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, readdir, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { createServer as createTcpServer } from "node:net";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -22,6 +22,7 @@ function memoryStore() {
     save: async (record) => (records.has(record.id) ? false : (records.set(record.id, { ...record }), true)),
     markDelivered: async (id, deliveredAt) => records.set(id, { ...records.get(id), deliveredAt }),
     pending: async () => [...records.values()].filter((record) => !record.deliveredAt),
+    deleteDeliveredBefore: async () => 0,
   };
 }
 
@@ -150,6 +151,72 @@ test("file store survives a reopen, refuses duplicates and lists pending", async
   assert.deepEqual(await reopened.pending(), []);
   assert.deepEqual(await readdir(directory), [`${ID}.json`]);
   assert.equal(JSON.parse(await readFile(path.join(directory, `${ID}.json`), "utf8")).message, valid.message);
+});
+
+test("an oversized body is refused before it is read in full", async () => {
+  let pulled = 0;
+  const { service, store, sent } = fixture();
+  const chunk = new Uint8Array(4 * 1024);
+  const body = new ReadableStream({
+    pull(controller) {
+      pulled += 1;
+      if (pulled > 1000) controller.close();
+      else controller.enqueue(chunk);
+    },
+  });
+  const request = new Request("http://test.local/api/contact", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body,
+    duplex: "half",
+  });
+
+  const response = await service.handle(request, { clientKey: "client" });
+
+  assert.equal(response.status, 413);
+  assert.equal(response.headers.get("connection"), "close");
+  assert.ok(pulled < 20, `read ${pulled} chunks`);
+  assert.equal(store.records.size, 0);
+  assert.equal(sent.length, 0);
+});
+
+test("a crash mid-write leaves no record and does not block the store", async (t) => {
+  const directory = await mkdtemp(path.join(tmpdir(), "contact-crash-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  await writeFile(path.join(directory, `${ID}.json.leftover.tmp`), '{"name":"partial');
+
+  const store = await createFileStore(directory);
+
+  assert.deepEqual(await readdir(directory), []);
+  assert.equal(await store.has(ID), false);
+  assert.equal(await store.save({ ...valid, deliveredAt: null }), true);
+  assert.equal(await store.save({ ...valid, deliveredAt: null }), false);
+  assert.deepEqual(await readdir(directory), [`${ID}.json`]);
+  assert.equal((await store.pending()).length, 1);
+});
+
+test("retention removes old delivered requests and never an undelivered one", async (t) => {
+  const directory = await mkdtemp(path.join(tmpdir(), "contact-retention-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const store = await createFileStore(directory);
+  const THIRD_ID = "9b2d4c61-3e5f-4a7b-8d6e-2c3d4e5f6a7b";
+  const received = (day) => `2026-01-${day}T00:00:00.000Z`;
+  await store.save({ ...valid, id: ID, receivedAt: received("01"), deliveredAt: received("01") });
+  await store.save({ ...valid, id: OTHER_ID, receivedAt: received("01"), deliveredAt: null });
+  await store.save({ ...valid, id: THIRD_ID, receivedAt: received("20"), deliveredAt: received("20") });
+  const service = createContactService({
+    store,
+    mailer: { send: async () => {} },
+    retentionDays: 10,
+    now: () => Date.parse("2026-01-25T00:00:00.000Z"),
+    log: () => {},
+  });
+
+  assert.equal(await service.purgeExpired(), 1);
+
+  assert.equal(await store.has(ID), false);
+  assert.equal(await store.has(OTHER_ID), true);
+  assert.equal(await store.has(THIRD_ID), true);
 });
 
 test("http service answers only the contact path", async (t) => {
